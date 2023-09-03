@@ -38,7 +38,7 @@ const getProblem = async (req, res) => {
 
 // delete a problem
 const deleteProblem = async (req, res) => {
-    const { id, user_id } = req.body
+    const { id, user_id } = req.query
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({error: 'No such problem'})
     }
