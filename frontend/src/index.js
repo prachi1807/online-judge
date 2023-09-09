@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import { AuthContextProvider } from './context/AuthContext';
+import { ProblemsListContextProvider } from './context/ProblemListContext';
 
 
 
@@ -10,7 +11,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <AuthContextProvider>
-      <App />
+      <ProblemsListContextProvider>
+        <App />
+      </ProblemsListContextProvider>
     </AuthContextProvider>
   </React.StrictMode>
 );
