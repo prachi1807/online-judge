@@ -6,6 +6,10 @@ const {
     getProblem,
     deleteProblem
 } = require('../../controller/problemController')
+const requireAuth = require('../../middleware/requireAuth')
+
+// require auth for all problem routes
+router.use(requireAuth)
 
 // GET list of all problems
 router.get('/', getProblemList)
