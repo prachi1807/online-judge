@@ -4,7 +4,8 @@ const mongoose = require('mongoose')
 
 // Create a new problem
 const createProblem = async (req, res) => {
-    const {created_by, title, description, test_cases, tag, difficulty} = req.body
+    const created_by = req.user._id
+    const {title, description, test_cases, tag, difficulty} = req.body
     try {
         const problem = await Problem.create({created_by, title, description, test_cases, tag, difficulty})
         res.status(200).json(problem)

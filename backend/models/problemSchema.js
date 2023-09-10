@@ -18,7 +18,8 @@ const testCaseSchema = new Schema({
 const problemSchema = new Schema({
     created_by: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required: true
     },
     title: {
         type: String,
