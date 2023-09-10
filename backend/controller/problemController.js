@@ -6,6 +6,27 @@ const mongoose = require('mongoose')
 const createProblem = async (req, res) => {
     const created_by = req.user._id
     const {title, description, test_cases, tag, difficulty} = req.body
+
+    let emptyFields = []
+    if (!title) {
+        emptyFields.push('title')
+    }
+    if (!description) {
+        emptyFields.push('description')
+    }
+    if (!test_cases) {
+        emptyFields.push('test_cases')
+    }
+    if (!tag) {
+        emptyFields.push('tag')
+    }
+    if (!difficulty) {
+        emptyFields.push('difficulty')
+    }
+    if (emptyFields.length > 0) {
+        return res.status(400).json({ error: 'Please fill in all the fields', emptyFields})
+    }
+
     try {
         const problem = await Problem.create({created_by, title, description, test_cases, tag, difficulty})
         res.status(200).json(problem)

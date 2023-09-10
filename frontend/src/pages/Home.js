@@ -4,6 +4,7 @@ import { useAuthContext } from '../hooks/useAuthContext'
 
 // components
 import ProblemListDetails from '../components/ProblemListDetails'
+import ProblemForm from '../components/ProblemForm'
 
 const Home = () => {
     const {problems, dispatch} = useProblemListContext()
@@ -36,6 +37,7 @@ const Home = () => {
                     <ProblemListDetails key={problem._id} problem={problem} />
                 ))}
             </div>
+            <ProblemForm />
         </div>
     )
 }
