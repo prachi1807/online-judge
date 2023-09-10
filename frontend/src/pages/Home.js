@@ -1,14 +1,21 @@
 import { useEffect } from 'react'
 import { useProblemListContext } from '../hooks/useProblemListContext'
+import { useAuthContext } from '../hooks/useAuthContext'
 
 // components
 import ProblemListDetails from '../components/ProblemListDetails'
 
 const Home = () => {
     const {problems, dispatch} = useProblemListContext()
+    const {user} = useAuthContext()
+    
     useEffect(() => {
         const fetchProblems = async () => {
-            const response = await fetch('/api/problems')
+            const response = await fetch('/api/problems', {
+                headers: {
+                    'Authorization': `Bearer ${user.token}`
+                }
+            })
             // array of problems objects
             const json = await response.json()
 
@@ -17,8 +24,10 @@ const Home = () => {
                 dispatch({type: 'SET_PROBLEMS', payload: json})
             }
         }
-        fetchProblems()
-    }, [dispatch]) // fire only once when component renders
+        if (user){
+            fetchProblems()
+        }
+    }, [dispatch, user]) // fire only once when component renders
     
     return (
         <div className="home">   
