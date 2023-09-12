@@ -1,6 +1,5 @@
 const ProblemListDetails = ({problem}) => {
     
-    console.log(problem)
     return (
         <div className="problem-details">
             <h4>{problem.title}</h4>

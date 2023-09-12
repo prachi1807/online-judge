@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import { AuthContextProvider } from './context/AuthContext';
 import { ProblemsListContextProvider } from './context/ProblemListContext';
+import { ProblemsContextProvider } from './context/ProblemContext';
 
 
 
@@ -12,7 +13,9 @@ root.render(
   <React.StrictMode>
     <AuthContextProvider>
       <ProblemsListContextProvider>
-        <App />
+        <ProblemsContextProvider>
+          <App />
+        </ProblemsContextProvider>
       </ProblemsListContextProvider>
     </AuthContextProvider>
   </React.StrictMode>
