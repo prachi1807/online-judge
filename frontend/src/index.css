@@ -88,6 +88,7 @@ form button {
   font-family: "Poppins";
   border-radius: 4px;
   cursor: pointer;
+  margin-left: 10px;
 }
 div.error {
   padding: 10px;
@@ -128,4 +129,11 @@ form.signup, form.login {
   padding: 20px;
   background: #fff;
   border-radius: 4px;
+}
+
+/* problem description */
+.problem-description {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 100px;
 }

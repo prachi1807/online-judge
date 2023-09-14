@@ -3,14 +3,24 @@ const executeCode = require('../utilities/executeCode')
 
 // Run a problem
 const runProblem = async (req, res) => {
-    const { language = 'py', code, input } = req.body
-    if (!code) {
-        return res.status(404).json({error: 'Enter some code'})
+    const created_by = req.user._id
+    const { language, code, input } = req.body
+
+    let emptyFields = []
+    if (!language) {
+        emptyFields.push('language')
     }
+    if (!code) {
+        emptyFields.push('code')
+    }
+    if (emptyFields.length > 0) {
+        return res.status(400).json({ error: 'Please fill in all the fields', emptyFields})
+    }
+
     try {
         const filePath = await generateFilePath(language, code)
         const output = await executeCode(filePath, language, input)
-        res.json({fileName: output})
+        res.status(200).json({output: output})
     } catch (error) {
         res.status(404).json({error: error.message})
     }
