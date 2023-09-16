@@ -29,7 +29,7 @@ const runProblem = async (req, res) => {
 
 const submitProblem = async (req, res) => {
     const user_id = req.user._id
-    const { language, code, id } = req.body
+    const { language, code, problem_id } = req.body
 
     let emptyFields = []
     if (!language) {
@@ -43,10 +43,10 @@ const submitProblem = async (req, res) => {
     }
 
     // create an entry in submissions model and set verdict as in_process
-    const submission = await Submission.create({user_id, problem_id: id, verdict: 'in_process'})
+    const submission = await Submission.create({user_id, problem_id, verdict: 'in_process'})
     try {
         const filePath = await generateFilePath(language, code)
-        const problem = await Problem.findById(id)
+        const problem = await Problem.findById({_id: problem_id})
         if (!problem){
             return res.status(404).json({error: 'No such problem'})
         }

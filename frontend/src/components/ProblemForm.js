@@ -84,12 +84,11 @@ const ProblemForm = () => {
             />
 
             <label>Difficulty :</label>
-            <input
-                type="text"
-                onChange={(e) => setDifficulty(e.target.value)}
-                value={difficulty}
-                className={emptyFields.includes('difficulty') ? 'error' : ''}
-            />
+            <select value={difficulty} className={emptyFields.includes('difficulty') ? 'error' : ''} onChange={(e) => setDifficulty(e.target.value)}>
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+            </select><br />      
 
             <button>Add Problem</button>
             {error && <div className="error">{error}</div>}
