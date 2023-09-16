@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useAuthContext } from '../hooks/useAuthContext'
 
-const SubmissionForm = () => {
+const SubmissionForm = ({ problemId }) => {
     const { user } = useAuthContext()
     const [language, setLanguage] = useState('')
     const [code, setCode] = useState('')
@@ -46,7 +46,7 @@ const SubmissionForm = () => {
     }
 
     const submitCode = () => {
-        console.log('Submit code here')
+        console.log('Submit code here for problme ID:', problemId)
     }
 
     return (

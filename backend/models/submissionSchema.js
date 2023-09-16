@@ -19,9 +19,10 @@ const submissionSchema = new Schema({
     },
     verdict: {
         type: String,
+        enum: ['success', 'failed', 'in_process'],
         required: true
     },
-    time_taken: {
+    score: {
         type: Number,
         min: 0
     }
@@ -29,5 +30,3 @@ const submissionSchema = new Schema({
 }, {timestamps: true})
 
 module.exports = mongoose.model('Submission', submissionSchema)
-
-
