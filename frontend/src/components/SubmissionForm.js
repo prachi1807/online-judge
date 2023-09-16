@@ -1,14 +1,15 @@
 import { useState } from 'react'
 import { useAuthContext } from '../hooks/useAuthContext'
 
-const SubmissionForm = () => {
+const SubmissionForm = ({ problemId }) => {
     const { user } = useAuthContext()
     const [language, setLanguage] = useState('')
     const [code, setCode] = useState('')
     const [input, setInput] = useState('')
     const [error, setError] = useState(null)
     const [emptyFields, setEmptyFields] = useState([])
-    const [output, setOutput] = useState('')
+    const [output, setOutput] = useState(null)
+    const [submission, setSubmission] = useState(null)
 
     const runCode = async (e) => {
         e.preventDefault()
@@ -45,8 +46,39 @@ const SubmissionForm = () => {
         }
     }
 
-    const submitCode = () => {
-        console.log('Submit code here')
+    const submitCode = async (e) => {
+        e.preventDefault()
+
+        if (!user){
+            setError('You must be logged in')
+            return
+        }
+
+        const payload = {language, code, problem_id: problemId}
+        const response = await fetch('/api/code/submit', {
+            method: 'POST',
+            body: JSON.stringify(payload),
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}`
+            }
+        })
+        const json = await response.json()
+
+        if (!response.ok) {
+            setError(json.error)
+            setEmptyFields(json.emptyFields)
+        }
+
+        if (response.ok) {
+            setLanguage('')
+            setCode('')
+            setInput('')
+            setError(null)
+            setEmptyFields([])
+            setSubmission(json)
+            console.log('Submission Made', json)
+        }
     }
 
     return (
@@ -79,7 +111,23 @@ const SubmissionForm = () => {
             <button type="button" onClick={submitCode}>Submit Code</button>
             {error && <div className="error">{error}</div>}
 
-            {output && <div className='output'>{output}</div>}
+            { output && (
+                <div>
+                    <label>Output:</label>
+                    <div className='output'>{output}</div>
+                </div>
+            )}
+
+            { submission && (
+                <div>
+                    <label>Submission:</label>
+                    <div className={submission.verdict === 'failed' ? 'error' : 'output'}>
+                        <p>Verdict: {submission.verdict}</p>
+                        <p>Total Test Cases: {submission.totalTestCases}</p>
+                        <p>Test Cases Passed: {submission.testCasesPassed}</p>
+                    </div>
+                </div>
+            )}
         </form>
     )
 

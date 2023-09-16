@@ -39,7 +39,7 @@ const ProblemPage = () => {
                     <p>Tag: {fetchedProblem.tag}</p>
                     <p>Difficulty: {fetchedProblem.difficulty}</p>
                 </div>
-                <SubmissionForm />
+                <SubmissionForm problemId={problemId}/>
             </div>
         )
     } 
