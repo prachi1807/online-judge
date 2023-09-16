@@ -12,6 +12,9 @@ const ProblemForm = () => {
     const [difficulty, setDifficulty] = useState('')
     const [error, setError] = useState(null)
     const [emptyFields, setEmptyFields] = useState([])
+    const [testCases, setTestCases] = useState([
+        {input: null, output: null}
+    ])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -21,13 +24,7 @@ const ProblemForm = () => {
             return
         }
 
-        const test_cases = [
-            {
-                input: 10,
-                output: 100
-            } 
-        ]
-        const problem = {title, description, test_cases, tag, difficulty}
+        const problem = {title, description, test_cases:testCases, tag, difficulty}
         const response = await fetch('/api/problems', {
             method: 'POST',
             body: JSON.stringify(problem),
@@ -50,9 +47,22 @@ const ProblemForm = () => {
             setDifficulty('')
             setError(null)
             setEmptyFields([])
+            setTestCases([{ input: null, output: null }]); // Reset test cases
             console.log('New Problem Added', json)
             dispatch({type: 'CREATE_PROBLEM', payload: json})
         }
+    }
+
+    // Function to add a new test case
+    const addTestCase = () => {
+        setTestCases([...testCases, {input: null, output: null}])
+    }
+
+    // Function to update a test case's input or output
+    const updateTestCase = (index, field, value) => {
+        const updatedTestCases = [...testCases]
+        updatedTestCases[index][field] = value
+        setTestCases(updatedTestCases)
     }
 
     return (
@@ -89,6 +99,29 @@ const ProblemForm = () => {
                 <option value="medium">Medium</option>
                 <option value="hard">Hard</option>
             </select><br />      
+
+            <div className="test-cases">
+                <p>Test Cases:</p>
+                {testCases.map((testCase, index) => (
+                <div key={index} className="test-case">
+                    <label>Input:</label>
+                    <input
+                    type="text"
+                    value={testCase.input}
+                    onChange={(e) => updateTestCase(index, "input", e.target.value)}
+                    />
+                    <label>Output:</label>
+                    <input
+                    type="text"
+                    value={testCase.output}
+                    onChange={(e) => updateTestCase(index, "output", e.target.value)}
+                    />
+                </div>
+                ))}
+                <button onClick={addTestCase}>
+                    Add Test Case
+                </button>
+            </div>
 
             <button>Add Problem</button>
             {error && <div className="error">{error}</div>}
