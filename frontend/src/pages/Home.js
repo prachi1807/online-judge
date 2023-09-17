@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { useProblemListContext } from '../hooks/useProblemListContext'
 import { useAuthContext } from '../hooks/useAuthContext'
-import { Link } from 'react-router-dom'
 
 // components
 import ProblemListDetails from '../components/ProblemListDetails'
@@ -35,9 +34,7 @@ const Home = () => {
         <div className="home">   
             <div className='problems'>
                 {problems && problems.map((problem) => (
-                    <Link key={problem._id} to={`/problems/${problem._id}`}>
-                        <ProblemListDetails key={problem._id} problem={problem} />
-                    </Link>
+                    <ProblemListDetails key={problem._id} problem={problem} />
                 ))}
             </div>
             <ProblemForm />
