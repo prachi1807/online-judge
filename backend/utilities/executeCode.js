@@ -24,7 +24,7 @@ const executeCode = async (filePath, language, input) => {
         // for local execution use - ${fileID}.exe
         cpp: [`g++ ${filePath} -o ${outputPath} && cd ${outputDirectory} && ./${fileID}.exe < ${inputPath}`],
         py: [`python ${filePath} < ${inputPath}`],
-        java: [`javac -d ${outputPath} ${filePath} && cd ${outputPath} && java ${fileID} < ${inputPath}`]
+        java: [`java ${filePath} < ${inputPath}`]
     }
 
     return new Promise((resolve, reject) => {
