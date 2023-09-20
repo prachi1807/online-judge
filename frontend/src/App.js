@@ -36,17 +36,17 @@ function App() {
 
             <Route
               path='/problems/:problemId'
-              element={<ProblemPage />}
+              element={user ? <ProblemPage /> : <Navigate to='/login'/>}
             />
 
             <Route
               path='/problems/:problemId/submissions'
-              element={<Submission />}
+              element={user ? <Submission /> : <Navigate to='/login'/>}
             />
 
             <Route
               path='/problems/:problemId/Leaderboard'
-              element={<Leaderboard />}
+              element={user ? <Leaderboard /> : <Navigate to='/login'/>}
             />
           </Routes>
         </div>
