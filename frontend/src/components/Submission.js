@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom'
 // date fns
 import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 
-const ProblemSubmission = () => {
+const Submission = () => {
     const { user } = useAuthContext()
     const { problemId } = useParams();
     const [ submissions, setSubmissions ] = useState([])
@@ -76,4 +76,4 @@ const ProblemSubmission = () => {
     )
 }
 
-export default ProblemSubmission
+export default Submission

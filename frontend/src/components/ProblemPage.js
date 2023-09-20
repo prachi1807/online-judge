@@ -43,7 +43,10 @@ const ProblemPage = () => {
                     <Link to={`/problems/${problemId}/submissions`}> 
                         <button>Submissions</button>
                     </Link>
-                    <button>Leaderboard</button>
+
+                    <Link to={`/problems/${problemId}/leaderboard`}> 
+                        <button>Leaderboard</button>
+                    </Link>
                 </div>
                 <SubmissionForm problemId={problemId}/>
             </div>
