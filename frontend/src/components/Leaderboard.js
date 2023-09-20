@@ -12,32 +12,34 @@ const Leaderboard = () => {
     const [ isLoading, setIsLoading ] = useState(true)
     const [ error, setError ] = useState(null)
 
-    useEffect(() => {
-        const fetchLeaderboardData = async () => {
-            try {
-                const response = await fetch(`/api/submissions/leaderboard/?problem_id=${problemId}`, {
-                    method: 'GET',
-                    headers: {
-                      'Authorization': `Bearer ${user.token}`
-                    }
-                })
-                
-                if (response.ok) {
-                    const data = await response.json()
-                    setLeaderboard(data)
+    const fetchLeaderboardData = async () => {
+        try {
+            const response = await fetch(`/api/submissions/leaderboard/?problem_id=${problemId}`, {
+                method: 'GET',
+                headers: {
+                  'Authorization': `Bearer ${user.token}`
                 }
-                else if (response.status === 404) {
-                    setError('No submissions found for this problem.')
-                }
-            } catch (error) {
-                console.error('Error fetching leaderboard:', error)
-                setError('An error occurred while fetching leaderboard.')
-            } finally {
-                setIsLoading(false)
+            })
+            
+            if (response.ok) {
+                const data = await response.json()
+                setLeaderboard(data)
             }
+            else if (response.status === 404) {
+                setError('No submissions found for this problem.')
+            }
+        } catch (error) {
+            console.error('Error fetching leaderboard:', error)
+            setError('An error occurred while fetching leaderboard.')
+        } finally {
+            setIsLoading(false)
         }
-        fetchLeaderboardData()
+    }
 
+    useEffect(() => {
+        if (user) {
+            fetchLeaderboardData()
+        }
       }, [problemId, user])
     
 

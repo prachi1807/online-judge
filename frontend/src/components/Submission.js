@@ -12,32 +12,34 @@ const Submission = () => {
     const [ isLoading, setIsLoading ] = useState(true)
     const [ error, setError ] = useState(null)
 
-    useEffect(() => {
-        const fetchProblemSubmissionData = async () => {
-            try {
-                const response = await fetch(`/api/submissions/?problem_id=${problemId}`, {
-                    method: 'GET',
-                    headers: {
-                      'Authorization': `Bearer ${user.token}`
-                    }
-                })
-                
-                if (response.ok) {
-                    const data = await response.json()
-                    setSubmissions(data)
+    const fetchProblemSubmissionData = async () => {
+        try {
+            const response = await fetch(`/api/submissions/?problem_id=${problemId}`, {
+                method: 'GET',
+                headers: {
+                  'Authorization': `Bearer ${user.token}`
                 }
-                else if (response.status === 404) {
-                    setError('No submissions found for this problem.')
-                }
-            } catch (error) {
-                console.error('Error fetching submissions:', error)
-                setError('An error occurred while fetching submissions.')
-            } finally {
-                setIsLoading(false)
+            })
+            
+            if (response.ok) {
+                const data = await response.json()
+                setSubmissions(data)
             }
+            else if (response.status === 404) {
+                setError('No submissions found for this problem.')
+            }
+        } catch (error) {
+            console.error('Error fetching submissions:', error)
+            setError('An error occurred while fetching submissions.')
+        } finally {
+            setIsLoading(false)
         }
-        fetchProblemSubmissionData()
-
+    }
+    
+    useEffect(() => {
+        if (user) {
+            fetchProblemSubmissionData()
+        }
       }, [problemId, user])
     
 
