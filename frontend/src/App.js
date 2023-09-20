@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Navbar from './components/Navbar';
 import ProblemPage from './components/ProblemPage';
+import ProblemSubmission from './components/ProblemSubmission'
 
 function App() {
   const { user } = useAuthContext()
@@ -35,6 +36,11 @@ function App() {
             <Route
               path='/problems/:problemId'
               element={<ProblemPage />}
+            />
+
+            <Route
+              path='/problems/:problemId/submissions'
+              element={<ProblemSubmission />}
             />
           </Routes>
         </div>
