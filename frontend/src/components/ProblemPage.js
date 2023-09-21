@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { React, useState } from "react"
 import { useParams } from "react-router-dom"
+import { Link } from 'react-router-dom'
 
 import { useAuthContext } from '../hooks/useAuthContext'
 import SubmissionForm from './SubmissionForm'
@@ -38,6 +39,14 @@ const ProblemPage = () => {
                     <p>Description: {fetchedProblem.description}</p>
                     <p>Tag: {fetchedProblem.tag}</p>
                     <p>Difficulty: {fetchedProblem.difficulty}</p>
+
+                    <Link to={`/problems/${problemId}/submissions`}> 
+                        <button>Submissions</button>
+                    </Link>
+
+                    <Link to={`/problems/${problemId}/leaderboard`}> 
+                        <button>Leaderboard</button>
+                    </Link>
                 </div>
                 <SubmissionForm problemId={problemId}/>
             </div>

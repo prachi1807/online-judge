@@ -3,7 +3,7 @@ import { useAuthContext } from '../hooks/useAuthContext'
 
 const SubmissionForm = ({ problemId }) => {
     const { user } = useAuthContext()
-    const [language, setLanguage] = useState('')
+    const [language, setLanguage] = useState('java')
     const [code, setCode] = useState('')
     const [input, setInput] = useState('')
     const [error, setError] = useState(null)
@@ -71,7 +71,7 @@ const SubmissionForm = ({ problemId }) => {
         }
 
         if (response.ok) {
-            setLanguage('')
+            setLanguage('java')
             setCode('')
             setInput('')
             setError(null)

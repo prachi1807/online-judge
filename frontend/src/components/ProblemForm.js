@@ -9,7 +9,7 @@ const ProblemForm = () => {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [tag, setTag] = useState('')
-    const [difficulty, setDifficulty] = useState('')
+    const [difficulty, setDifficulty] = useState('easy')
     const [error, setError] = useState(null)
     const [emptyFields, setEmptyFields] = useState([])
     const [testCases, setTestCases] = useState([
@@ -44,7 +44,7 @@ const ProblemForm = () => {
             setTitle('')
             setDescription('')
             setTag('')
-            setDifficulty('')
+            setDifficulty('easy')
             setError(null)
             setEmptyFields([])
             setTestCases([{ input: null, output: null }]); // Reset test cases
