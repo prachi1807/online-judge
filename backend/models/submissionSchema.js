@@ -25,6 +25,10 @@ const submissionSchema = new Schema({
     score: {
         type: Number,
         min: 0
+    },
+    language: {
+        type: String,
+        required: true
     }
     
 }, {timestamps: true})

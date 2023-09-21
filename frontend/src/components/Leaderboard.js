@@ -59,6 +59,7 @@ const Leaderboard = () => {
                         <tr>
                             <th>Date</th>
                             <th>User ID</th>
+                            <th>Language</th>
                             <th>Verdict</th>
                             <th>Score</th>
                         </tr>
@@ -68,6 +69,7 @@ const Leaderboard = () => {
                                 <tr key={index}>
                                     <td>{formatDistanceToNow(new Date(leaderboard.createdAt), {addSuffix: true})}</td>
                                     <td>{leaderboard.user_id}</td>
+                                    <td>{leaderboard.language}</td>
                                     <td>{leaderboard.verdict}</td>
                                     <td>{leaderboard.score}</td>
                                 </tr>

@@ -58,6 +58,7 @@ const Submission = () => {
                     <thead>
                         <tr>
                             <th>Date</th>
+                            <th>Language</th>
                             <th>Verdict</th>
                             <th>Score</th>
                         </tr>
@@ -66,6 +67,7 @@ const Submission = () => {
                             {submissions.map((submission, index) => (
                                 <tr key={index}>
                                     <td>{formatDistanceToNow(new Date(submission.createdAt), {addSuffix: true})}</td>
+                                    <td>{submission.language}</td>
                                     <td>{submission.verdict}</td>
                                     <td>{submission.score}</td>
                                 </tr>
