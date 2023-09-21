@@ -43,7 +43,7 @@ const submitProblem = async (req, res) => {
     }
 
     // create an entry in submissions model and set verdict as in_process
-    const submission = await Submission.create({user_id, problem_id, verdict: 'in_process'})
+    const submission = await Submission.create({user_id, problem_id, verdict: 'in_process', language})
     try {
         const filePath = await generateFilePath(language, code)
         const problem = await Problem.findById({_id: problem_id})

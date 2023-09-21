@@ -12,6 +12,23 @@ const ProblemForm = () => {
     const [difficulty, setDifficulty] = useState('easy')
     const [error, setError] = useState(null)
     const [emptyFields, setEmptyFields] = useState([])
+    const [testCases, setTestCases] = useState([{ input: '', output: '' }]);
+
+    const handleAddTestCase = () => {
+        setTestCases([...testCases, { input: '', output: '' }])
+    }
+
+    const handleTestCaseChange = (index, key, value) => {
+        const updatedTestCases = [...testCases]
+        updatedTestCases[index][key] = value
+        setTestCases(updatedTestCases)
+    }
+
+    const handleRemoveTestCase = (index) => {
+        const updatedTestCases = [...testCases]
+        updatedTestCases.splice(index, 1)
+        setTestCases(updatedTestCases)
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -21,13 +38,16 @@ const ProblemForm = () => {
             return
         }
 
-        const test_cases = [
-            {
-                input: 10,
-                output: 100
-            } 
-        ]
-        const problem = {title, description, test_cases, tag, difficulty}
+        const invalidTestCases = testCases.some(
+            (testCase) => testCase.input.trim() === '' || testCase.output.trim() === ''
+        )
+        
+        if (invalidTestCases) {
+            setError("All test cases must have both input and output specified")
+            return
+        }
+
+        const problem = {title, description, test_cases: testCases, tag, difficulty}
         const response = await fetch('/api/problems', {
             method: 'POST',
             body: JSON.stringify(problem),
@@ -50,6 +70,7 @@ const ProblemForm = () => {
             setDifficulty('easy')
             setError(null)
             setEmptyFields([])
+            setTestCases([{ input: '', output: '' }]);
             console.log('New Problem Added', json)
             dispatch({type: 'CREATE_PROBLEM', payload: json})
         }
@@ -88,7 +109,37 @@ const ProblemForm = () => {
                 <option value="easy">Easy</option>
                 <option value="medium">Medium</option>
                 <option value="hard">Hard</option>
-            </select><br />      
+            </select><br />   
+
+            <p>Test Cases:</p>
+            {testCases.map((testCase, index) => (
+                <div key={index}>
+                <input
+                    type="text"
+                    placeholder="Input"
+                    value={testCase.input}
+                    className={emptyFields.includes('test_cases') ? 'error' : ''}
+                    onChange={(e) =>
+                    handleTestCaseChange(index, "input", e.target.value)
+                    }
+                />
+                <input
+                    type="text"
+                    placeholder="Output"
+                    value={testCase.output}
+                    className={emptyFields.includes('test_cases') ? 'error' : ''}
+                    onChange={(e) =>
+                    handleTestCaseChange(index, "output", e.target.value)
+                    }
+                />
+                <button type="button" onClick={() => handleRemoveTestCase(index)}>
+                    Remove
+                </button>
+                </div>
+            ))}
+            <button type="button" onClick={handleAddTestCase}>
+                Add Test Case
+            </button>   
 
             <button>Add Problem</button>
             {error && <div className="error">{error}</div>}
