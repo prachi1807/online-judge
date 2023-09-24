@@ -10,7 +10,7 @@ const getProblemLeaderboard = async (req, res) => {
         return res.status(404).json({error: 'No such problem'})
     }
 
-    const submissions = await Submission.find({problem_id}).sort({score: -1})
+    const submissions = await Submission.find({problem_id}).populate('user_id').sort({score: -1})
     if (!submissions){
         return res.status(404).json({error: 'No submissions found for this problem'})
     }
