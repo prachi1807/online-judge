@@ -54,7 +54,7 @@ const Leaderboard = () => {
             )}
 
             {!isLoading && !error && leaderboard.length > 0 && (
-                <table>
+                <table className="submissions-table">
                     <thead>
                         <tr>
                             <th>Date</th>
@@ -63,19 +63,18 @@ const Leaderboard = () => {
                             <th>Verdict</th>
                             <th>Score</th>
                         </tr>
-
-                        <tbody>
-                            {leaderboard.map((leaderboard, index) => (
-                                <tr key={index}>
-                                    <td>{formatDistanceToNow(new Date(leaderboard.createdAt), {addSuffix: true})}</td>
-                                    <td>{leaderboard.user_id.username}</td>
-                                    <td>{leaderboard.language}</td>
-                                    <td>{leaderboard.verdict}</td>
-                                    <td>{leaderboard.score}</td>
-                                </tr>
-                            ))}
-                        </tbody>
                     </thead>
+                    <tbody>
+                        {leaderboard.map((leaderboard, index) => (
+                            <tr key={index}>
+                                <td>{formatDistanceToNow(new Date(leaderboard.createdAt), {addSuffix: true})}</td>
+                                <td>{leaderboard.user_id.username}</td>
+                                <td>{leaderboard.language}</td>
+                                <td>{leaderboard.verdict}</td>
+                                <td>{leaderboard.score}</td>
+                            </tr>
+                        ))}
+                    </tbody>
                 </table>
             )}
         </div>

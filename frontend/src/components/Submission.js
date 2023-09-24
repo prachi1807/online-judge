@@ -54,7 +54,7 @@ const Submission = () => {
             )}
 
             {!isLoading && !error && submissions.length > 0 && (
-                <table>
+                <table className="submissions-table">
                     <thead>
                         <tr>
                             <th>Date</th>
@@ -62,20 +62,20 @@ const Submission = () => {
                             <th>Verdict</th>
                             <th>Score</th>
                         </tr>
-
-                        <tbody>
-                            {submissions.map((submission, index) => (
-                                <tr key={index}>
-                                    <td>{formatDistanceToNow(new Date(submission.createdAt), {addSuffix: true})}</td>
-                                    <td>{submission.language}</td>
-                                    <td>{submission.verdict}</td>
-                                    <td>{submission.score}</td>
-                                </tr>
-                            ))}
-                        </tbody>
                     </thead>
+                    <tbody>
+                        {submissions.map((submission, index) => (
+                            <tr key={index}>
+                            <td>{formatDistanceToNow(new Date(submission.createdAt), { addSuffix: true })}</td>
+                            <td>{submission.language}</td>
+                            <td>{submission.verdict}</td>
+                            <td>{submission.score}</td>
+                            </tr>
+                        ))}
+                    </tbody>
                 </table>
             )}
+
         </div>
     )
 }
