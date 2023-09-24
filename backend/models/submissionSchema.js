@@ -9,12 +9,12 @@ const Problem = require('./problemSchema')
 const submissionSchema = new Schema({
     user_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: User,
         rquired: true
     },
     problem_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Problem',
+        ref: Problem,
         required: true
     },
     verdict: {
