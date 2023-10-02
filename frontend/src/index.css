@@ -149,9 +149,9 @@ div.output {
 }
 
 .error-popup {
-  position: absolute;
-  top: calc(60%);
-  right: -20%;
+  position: fixed;
+  top: calc(100px + 0.5cm);
+  left: 50%;
   transform: translateX(-50%);
   background-color: #ff6b6b;
   color: white;
