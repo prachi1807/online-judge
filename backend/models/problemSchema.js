@@ -6,8 +6,7 @@ const User = require('./userSchema')
 
 const testCaseSchema = new Schema({
     input: {
-        type: String,
-        required: true
+        type: String
     },
     output: {
         type: String,

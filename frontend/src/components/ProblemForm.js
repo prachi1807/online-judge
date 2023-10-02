@@ -39,11 +39,11 @@ const ProblemForm = () => {
         }
 
         const invalidTestCases = testCases.some(
-            (testCase) => testCase.input.trim() === '' || testCase.output.trim() === ''
+            (testCase) => testCase.output.trim() === ''
         )
         
         if (invalidTestCases) {
-            setError("All test cases must have both input and output specified")
+            setError("All test cases must have output specified")
             return
         }
 
