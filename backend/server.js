@@ -1,6 +1,7 @@
 require('dotenv').config()
 const express = require('express') 
 const mongooose = require('mongoose')
+const cors = require('cors')
 
 const routes = require('./routes/index')
 
@@ -10,6 +11,18 @@ const app = express()
 // middleware
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
+
+app.use(
+    cors({
+      origin: [
+        'http://localhost:3000',
+        'https://online-judge-rust.vercel.app'
+      ],
+      methods: ['GET', 'POST', 'DELETE'],
+      allowedHeaders: ['Content-Type', 'Authorization'],
+      credentials: true,
+    })
+)
 
 app.use((req, res, next) => {
     console.log(req.path, req.method)
