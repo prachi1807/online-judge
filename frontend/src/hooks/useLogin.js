@@ -9,7 +9,7 @@ export const useLogin = () => {
     const login = async (email, password) => {
         setIsloading(true)
         setError(null)
-        const response = await fetch('/api/users/login', {
+        const response = await fetch('http://54.198.2.31:4000/api/users/login', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({email, password})
@@ -18,7 +18,6 @@ export const useLogin = () => {
 
         // json contains ok property
         if (!response.ok){
-            console.log('-----URL----', response.url, response.status)
             setIsloading(false)
             setError(json.error)
         }
