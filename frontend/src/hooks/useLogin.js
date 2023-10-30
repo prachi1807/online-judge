@@ -9,30 +9,27 @@ export const useLogin = () => {
     const login = async (email, password) => {
         setIsloading(true)
         setError(null)
-        try {
-            const response = await fetch('/api/users/login', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({email, password})
-            })
-            const json = await response.json()
-    
-            // json contains ok property
-            if (!response.ok){
-                setIsloading(false)
-                setError(json.error)
-            }
-            if (response.ok){
-                // save jwt token and email to local storage
-                localStorage.setItem('user', JSON.stringify(json))
-    
-                // update auth context
-                dispatch({type: 'LOGIN', payload: json})
-    
-                setIsloading(false)
-            }
-        } catch (error) {
-            console.log(error)
+        const response = await fetch('/api/users/login', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({email, password})
+        })
+        const json = await response.json()
+
+        // json contains ok property
+        if (!response.ok){
+            console.log('-----URL----', response.url, response.status)
+            setIsloading(false)
+            setError(json.error)
+        }
+        if (response.ok){
+            // save jwt token and email to local storage
+            localStorage.setItem('user', JSON.stringify(json))
+
+            // update auth context
+            dispatch({type: 'LOGIN', payload: json})
+
+            setIsloading(false)
         }
     }
     return {login, isLoading, error}
